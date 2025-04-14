@@ -191,6 +191,20 @@ class utils {
     ];
   };
 
+  compareDates = (a, b) => {
+    const dateA = this.getDate(a);
+    const dateB = this.getDate(b);
+  
+    if (dateA.isAfter(dateB)) return 1;
+    if (dateA.isBefore(dateB)) return -1;
+    return 0;
+  };
+
+  isDateBetween(target, start, end) {
+    return this.compareDates(target, start) > 0 &&
+           this.compareDates(target, end) < 0;
+  }
+
   useMonthAnimation = (activeDate, distance, onEnd = () => null) => {
     const [lastDate, setLastDate] = useState(activeDate);
     const [changeWay, setChangeWay] = useState(null);
