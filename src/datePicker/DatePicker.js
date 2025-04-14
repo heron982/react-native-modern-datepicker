@@ -29,6 +29,12 @@ const reducer = (state, action) => {
       return {...state, monthOpen: !state.monthOpen};
     case 'toggleTime':
       return {...state, timeOpen: !state.timeOpen};
+      case 'selectRangeStart':
+        return {...state, startDate: action.date, endDate: ''};
+      case 'selectRangeEnd':
+        return {...state, endDate: action.date};
+      case 'resetRange':
+        return {...state, startDate: '', endDate: ''};
     default:
       throw new Error('Unexpected action');
   }
@@ -53,6 +59,10 @@ const DatePicker = props => {
       selectedDate: props.selected
         ? calendarUtils.getFormated(calendarUtils.getDate(props.selected))
         : '',
+      ...(props.range && {
+          startDate: '',
+          endDate: '',
+        }),
       monthOpen: props.mode === 'monthYear',
       timeOpen: props.mode === 'time',
     }),
@@ -143,6 +153,7 @@ DatePicker.defaultProps = {
   mode: 'datepicker',
   minuteInterval: 5,
   style: {},
+  range: false,
 };
 
 DatePicker.propTypes = {
@@ -164,6 +175,7 @@ DatePicker.propTypes = {
   mode: PropTypes.oneOf(modeArray),
   minuteInterval: PropTypes.oneOf(minuteIntervalArray),
   style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  range: PropTypes.bool,
 };
 
 export {DatePicker, CalendarContext, useCalendar};
