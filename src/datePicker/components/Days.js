@@ -48,7 +48,7 @@ const Days = () => {
         utils.isDateBetween(day?.date, mainState.startDate, mainState.endDate);
       const isRangeStart = mainState.startDate === day?.date;
       const isRangeEnd = mainState.endDate === day?.date;
-      const dayItemMargin = (isInRange || isFirstDay || isLastDay)
+      const dayItemMargin = (isInRange || isRangeStart|| isRangeEnd)
       ? { marginTop: 3, marginBottom: 3, marginLeft: 0, marginRight: 0 }
       : { margin: 3 };
       return (
