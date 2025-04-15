@@ -48,7 +48,9 @@ const Days = () => {
         utils.isDateBetween(day?.date, mainState.startDate, mainState.endDate);
       const isRangeStart = mainState.startDate === day?.date;
       const isRangeEnd = mainState.endDate === day?.date;
-
+      const dayItemMargin = (isInRange || isFirstDay || isLastDay)
+      ? { marginTop: 3, marginBottom: 3, marginLeft: 0, marginRight: 0 }
+      : { margin: 3 };
       return (
         <View
           key={n}
@@ -62,6 +64,7 @@ const Days = () => {
                 style.dayItem,
                 {
                   borderRadius: range ? 0 : itemSize / 2,
+                  ...dayItemMargin,
                 },
                 (isSelected || isInRange || isRangeStart || isRangeEnd) && style.dayItemSelected,
               ]}
@@ -70,7 +73,7 @@ const Days = () => {
               <Text
                 style={[
                   style.dayText,
-                  (isSelected || isInRange) && style.dayTextSelected,
+                  (isSelected || isInRange || isRangeStart || isRangeEnd) && style.dayTextSelected,
                   day.disabled && style.dayTextDisabled,
                 ]}>
                 {day.dayString}
