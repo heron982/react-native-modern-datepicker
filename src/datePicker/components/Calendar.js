@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {View, StyleSheet, Text, Animated} from 'react-native';
 
 import { Header } from './Header';
+import { Footer } from './Footer';
 import { Days } from './Days';
 import {useCalendar} from '../DatePicker';
 
@@ -33,6 +34,7 @@ const Calendar = () => {
           <Days />
         </Animated.View>
       </View>
+      <Footer />
     </View>
   );
 };

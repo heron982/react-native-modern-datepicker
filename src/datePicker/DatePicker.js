@@ -66,6 +66,7 @@ const DatePicker = props => {
       monthOpen: props.mode === 'monthYear',
       timeOpen: props.mode === 'time',
     }),
+    onDateChange: props.onDateChange, 
   };
   const [minHeight, setMinHeight] = useState(300);
   const style = styles(contextValue.options);
