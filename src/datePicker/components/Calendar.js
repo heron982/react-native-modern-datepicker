@@ -1,14 +1,13 @@
 import React, {useEffect} from 'react';
-import {View, StyleSheet, Text, Animated} from 'react-native';
+import {View, StyleSheet, Text, Animated, TouchableOpacity} from 'react-native';
 
 import { Header } from './Header';
-import { Footer } from './Footer';
 import { Days } from './Days';
 import {useCalendar} from '../DatePicker';
 
 const Calendar = () => {
-  const {options, state, utils, onSelectedChange} = useCalendar();
-  const [mainState] = state;
+  const {options, state, utils, onSelectedChange, range} = useCalendar();
+  const [mainState, setMainState] = state;
   const style = styles(options);
   const [{shownAnimation}, changeMonthAnimation] = utils.useMonthAnimation(
     mainState.activeDate,
@@ -28,6 +27,27 @@ const Calendar = () => {
     onSelectedChange,
   ]);
 
+   const handleToday = () => {
+    const today = utils.getToday();
+    setMainState({ type: 'set', selectedDate: today });
+    if (onDateChange) {
+      onDateChange(today);
+    }
+  };
+
+  const handleFullMonth = () => {
+    if (!range) return;
+
+    const activeDate = utils.getDate(mainState.activeDate);
+    const firstDay = utils.startOfMonth(activeDate);
+    const lastDay = utils.endOfMonth(activeDate);
+
+    setMainState({ type: 'set', startDate: firstDay, endDate: lastDay });
+    if (onDateChange) {
+      onDateChange({ startDate: firstDay, endDate: lastDay });
+    }
+  };
+
   return (
     <View style={style.container}>
       <Header changeMonth={changeMonthAnimation} />
@@ -43,7 +63,16 @@ const Calendar = () => {
           <Days />
         </Animated.View>
       </View>
-      <Footer />
+      <View style={style.footContainer}>
+        <TouchableOpacity onPress={handleToday} style={style.todayButton}>
+          <Text style={style.todayText}>Hoje</Text>
+        </TouchableOpacity>
+        {range && (
+          <TouchableOpacity onPress={handleFullMonth} style={style.fullMonthButton}>
+            <Text style={style.fullMonthText}>Mês Inteiro</Text>
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 };
@@ -83,6 +112,36 @@ const styles = theme =>
       height: '100%',
       top: 0,
       right: 0,
+    },
+    footContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      padding: 10,
+    },
+    todayButton: {
+      paddingVertical: 10,
+      paddingHorizontal: 16,
+      borderRadius: 12,
+      backgroundColor: 'transparent',
+      marginRight: 8,
+    },
+    todayText: {
+      fontFamily: theme.defaultFont,
+      fontSize: theme.textFontSize,
+      color: theme.textDefaultColor,
+    },
+    fullMonthButton: {
+      paddingVertical: 10,
+      paddingHorizontal: 16,
+      borderRadius: 12,
+      backgroundColor: theme.mainColor,
+      borderColor: theme.borderColor,
+      borderWidth: 1,
+    },
+    fullMonthText: {
+      fontFamily: theme.defaultFont,
+      fontSize: theme.textFontSize,
+      color: theme.selectedTextColor,
     },
   });
 
