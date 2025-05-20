@@ -16,8 +16,17 @@ const Calendar = () => {
   );
 
   useEffect(() => {
-    mainState.selectedDate && onSelectedChange(mainState.selectedDate);
-  }, [mainState.selectedDate, onSelectedChange]);
+    if (mainState.startDate && mainState.endDate) {
+      onSelectedChange(`${mainState.startDate} ~ ${mainState.endDate}`);
+    } else if (mainState.selectedDate) {
+      onSelectedChange(mainState.selectedDate);
+    }
+  }, [
+    mainState.selectedDate,
+    mainState.startDate,
+    mainState.endDate,
+    onSelectedChange,
+  ]);
 
   return (
     <View style={style.container}>

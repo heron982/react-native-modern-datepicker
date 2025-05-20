@@ -40,44 +40,48 @@ const Days = () => {
 
   return (
     <View style={[style.container, utils.flexDirection]} onLayout={changeItemHeight}>
-      {days.map((day, n) => {
-        const isSelected = mainState.selectedDate === day?.date;
-        const isInRange =
-          mainState.startDate &&
-          mainState.endDate &&
-          utils.isDateBetween(day?.date, mainState.startDate, mainState.endDate);
-          const isRangeStart = mainState.startDate === day?.date;
-          const isRangeEnd = mainState.endDate === day?.date;
-        return (
-          <View
-            key={n}
-            style={{
-              width: itemSize,
-              height: itemSize,
-            }}>
-            {day && (
-              <TouchableOpacity
+    {days.map((day, n) => {
+      const isSelected = mainState.selectedDate === day?.date;
+      const isInRange =
+        mainState.startDate &&
+        mainState.endDate &&
+        utils.isDateBetween(day?.date, mainState.startDate, mainState.endDate);
+      const isRangeStart = mainState.startDate === day?.date;
+      const isRangeEnd = mainState.endDate === day?.date;
+      const dayItemMargin = (isInRange || isRangeStart|| isRangeEnd)
+      ? { marginTop: 3, marginBottom: 3, marginLeft: 0, marginRight: 0 }
+      : { margin: 3 };
+      return (
+        <View
+          key={n}
+          style={{
+            width: itemSize,
+            height: itemSize,
+          }}>
+          {day && (
+            <TouchableOpacity
+              style={[
+                style.dayItem,
+                {
+                  borderRadius: range ? 0 : itemSize / 2,
+                  ...dayItemMargin,
+                },
+                (isSelected || isInRange || isRangeStart || isRangeEnd) && style.dayItemSelected,
+              ]}
+              onPress={() => !day.disabled && onSelectDay(day.date)}
+              activeOpacity={0.8}>
+              <Text
                 style={[
-                  style.dayItem,
-                  {
-                    borderRadius: itemSize / 2,
-                  },
-                  (isSelected || isInRange || isRangeStart || isRangeEnd) && style.dayItemSelected
-                ]}
-                onPress={() => !day.disabled && onSelectDay(day.date)}
-                activeOpacity={0.8}>
-                <Text
-                  style={[
-                    style.dayText,
-                    (isSelected || isInRange) && style.dayTextSelected,
-                    day.disabled && style.dayTextDisabled,
-                  ]}>
-                  {day.dayString}
-                </Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        );
+                  style.dayText,
+                  (isSelected || isInRange || isRangeStart || isRangeEnd) && style.dayTextSelected,
+                  day.disabled && style.dayTextDisabled,
+                ]}>
+                {day.dayString}
+              </Text>
+            </TouchableOpacity>
+          )}
+        </View>
+      );
     })}
   </View>
 );
