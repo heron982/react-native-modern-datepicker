@@ -1,4 +1,4 @@
-import { View, Button, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
 import { useCalendar } from '../DatePicker';
 
 const Footer = () => {
@@ -28,46 +28,45 @@ const Footer = () => {
 
   return (
     <View style={styles.container}>
-  <TouchableOpacity
-    onPress={handleToday}
-    style={{
-      paddingVertical: 10,
-      paddingHorizontal: 16,
-      borderRadius: 12,
-      backgroundColor: 'transparent',
-      marginRight: 8,
-    }}
-  >
-    <Text style={{
-      fontFamily: theme.defaultFont,
-      fontSize: theme.textFontSize,
-      color: theme.textDefaultColor,
-    }}>
-      Hoje
-    </Text>
-  </TouchableOpacity>
-
-  {range && (
-    <TouchableOpacity
-      onPress={handleFullMonth}
-      style={{
-        paddingVertical: 10,
-        paddingHorizontal: 16,
-        borderRadius: 12,
-        backgroundColor: theme.mainColor,
-        borderColor: them.borderColor
-      }}
-    >
-      <Text style={{
-        fontFamily: theme.defaultFont,
-        fontSize: theme.textFontSize,
-        color: theme.selectedTextColor,
-      }}>
-        Mês Inteiro
-      </Text>
-    </TouchableOpacity>
-  )}
-</View>
+        <TouchableOpacity
+          onPress={handleToday}
+          style={{
+            paddingVertical: 10,
+            paddingHorizontal: 16,
+            borderRadius: 12,
+            backgroundColor: 'transparent',
+            marginRight: 8,
+          }}
+        >
+          <Text style={{
+            fontFamily: theme.defaultFont,
+            fontSize: theme.textFontSize,
+            color: theme.textDefaultColor,
+          }}>
+            Hoje
+          </Text>
+        </TouchableOpacity>
+        {range && (
+        <TouchableOpacity
+            onPress={handleFullMonth}
+            style={{
+              paddingVertical: 10,
+              paddingHorizontal: 16,
+              borderRadius: 12,
+              backgroundColor: theme.mainColor,
+              borderColor: them.borderColor
+            }}
+        >
+            <Text style={{
+              fontFamily: theme.defaultFont,
+              fontSize: theme.textFontSize,
+              color: theme.selectedTextColor,
+            }}>
+                Mês Inteiro
+            </Text>
+        </TouchableOpacity>
+    )}
+    </View>
 
   );
 };
