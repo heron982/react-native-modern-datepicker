@@ -147,6 +147,21 @@ class utils {
     return this.checkMonthDisabled(this.getFormated(dateWithNewMonth));
   };
 
+  startOfMonth = (date) => {
+    const mDate = this.getDate(date);
+    return this.getFormated(
+      this.data.isGregorian ? mDate.startOf('month') : mDate.startOf('jMonth')
+    );
+  };
+  
+  endOfMonth = (date) => {
+    const mDate = this.getDate(date);
+    return this.getFormated(
+      this.data.isGregorian ? mDate.endOf('month') : mDate.endOf('jMonth')
+    );
+  };
+
+
   validYear = (time, year) => {
     const {minimumDate, maximumDate, isGregorian} = this.data;
     const date = isGregorian ? this.getDate(time).year(year) : this.getDate(time).jYear(year);

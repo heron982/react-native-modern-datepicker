@@ -75,6 +75,7 @@ const styles = theme =>
       margin: 15,
       marginTop: 5,
       marginBottom: 0,
+      minHeight: 320
     },
     days: {
       position: 'absolute',

@@ -1,14 +1,13 @@
-import React from 'react';
-import {View, Button, StyleSheet} from 'react-native';
-import {useCalendar} from '../DatePicker';
+import { View, Button, StyleSheet } from 'react-native';
+import { useCalendar } from '../DatePicker';
 
 const Footer = () => {
-  const {utils, onDateChange, state, range} = useCalendar();
-  const [mainState, dispatch] = state;
+  const { utils, onDateChange, state, range } = useCalendar();
+  const [mainState, setMainState] = state;
 
   const handleToday = () => {
     const today = utils.getToday();
-    dispatch({type: 'SET_DATE', payload: today});
+    setMainState({ type: 'set', selectedDate: today });
     if (onDateChange) {
       onDateChange(today);
     }
@@ -21,17 +20,55 @@ const Footer = () => {
     const firstDay = utils.startOfMonth(activeDate);
     const lastDay = utils.endOfMonth(activeDate);
 
-    dispatch({type: 'SET_RANGE_DATE', payload: {startDate: firstDay, endDate: lastDay}});
+    setMainState({ type: 'set', startDate: firstDay, endDate: lastDay });
     if (onDateChange) {
-      onDateChange({startDate: firstDay, endDate: lastDay});
+      onDateChange({ startDate: firstDay, endDate: lastDay });
     }
   };
 
   return (
     <View style={styles.container}>
-      <Button title="Hoje" onPress={handleToday} />
-      {range && <Button title="Mês Inteiro" onPress={handleFullMonth} />}
-    </View>
+  <TouchableOpacity
+    onPress={handleToday}
+    style={{
+      paddingVertical: 10,
+      paddingHorizontal: 16,
+      borderRadius: 12,
+      backgroundColor: 'transparent',
+      marginRight: 8,
+    }}
+  >
+    <Text style={{
+      fontFamily: theme.defaultFont,
+      fontSize: theme.textFontSize,
+      color: theme.textDefaultColor,
+    }}>
+      Hoje
+    </Text>
+  </TouchableOpacity>
+
+  {range && (
+    <TouchableOpacity
+      onPress={handleFullMonth}
+      style={{
+        paddingVertical: 10,
+        paddingHorizontal: 16,
+        borderRadius: 12,
+        backgroundColor: theme.mainColor,
+        borderColor: them.borderColor
+      }}
+    >
+      <Text style={{
+        fontFamily: theme.defaultFont,
+        fontSize: theme.textFontSize,
+        color: theme.selectedTextColor,
+      }}>
+        Mês Inteiro
+      </Text>
+    </TouchableOpacity>
+  )}
+</View>
+
   );
 };
 
@@ -43,4 +80,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export {Footer};
+export { Footer };
