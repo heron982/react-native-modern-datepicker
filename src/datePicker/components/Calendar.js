@@ -61,27 +61,17 @@ const Calendar = () => {
       <View style={style.daysContainer}>
         <Animated.View style={[style.days, shownAnimation]}>
           <Days />
+          <View style={style.footContainer}>
+            <TouchableOpacity onPress={handleToday} style={style.todayButton}>
+              <Text style={style.todayText}>Hoje</Text>
+            </TouchableOpacity>
+            {range && (
+              <TouchableOpacity onPress={handleFullMonth} style={style.todayButton}>
+                <Text style={style.todayText}>Mês Inteiro</Text>
+              </TouchableOpacity>
+            )}
+          </View>
         </Animated.View>
-         <View style={style.footContainer}>
-        <TouchableOpacity onPress={handleToday} style={style.todayButton}>
-          <Text style={style.todayText}>Hoje</Text>
-        </TouchableOpacity>
-        {range && (
-          <TouchableOpacity onPress={handleFullMonth} style={style.fullMonthButton}>
-            <Text style={style.fullMonthText}>Mês Inteiro</Text>
-          </TouchableOpacity>
-        )}
-      </View>
-      </View>
-      <View style={style.footContainer}>
-        <TouchableOpacity onPress={handleToday} style={style.todayButton}>
-          <Text style={style.todayText}>Hoje</Text>
-        </TouchableOpacity>
-        {range && (
-          <TouchableOpacity onPress={handleFullMonth} style={style.fullMonthButton}>
-            <Text style={style.fullMonthText}>Mês Inteiro</Text>
-          </TouchableOpacity>
-        )}
       </View>
     </View>
   );
@@ -134,25 +124,14 @@ const styles = theme =>
       borderRadius: 12,
       backgroundColor: 'transparent',
       marginRight: 8,
+      borderWidth: 1
     },
     todayText: {
       fontFamily: theme.defaultFont,
       fontSize: theme.textFontSize,
       color: theme.textDefaultColor,
     },
-    fullMonthButton: {
-      paddingVertical: 10,
-      paddingHorizontal: 16,
-      borderRadius: 12,
-      backgroundColor: theme.mainColor,
-      borderColor: theme.borderColor,
-      borderWidth: 1,
-    },
-    fullMonthText: {
-      fontFamily: theme.defaultFont,
-      fontSize: theme.textFontSize,
-      color: theme.selectedTextColor,
-    },
+
   });
 
 export {Calendar};
