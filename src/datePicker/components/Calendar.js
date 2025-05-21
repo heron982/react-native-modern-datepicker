@@ -93,6 +93,21 @@ const Calendar = () => {
           </View>
         </Animated.View>
       </View>
+       <View style={style.footContainer}>
+            <TouchableOpacity onPress={handleToday} style={style.todayButton}>
+              <Text style={style.todayText}>Hoje</Text>
+            </TouchableOpacity>
+            {range && (
+              <>
+                <TouchableOpacity onPress={handleFullMonth} style={style.todayButton}>
+                  <Text style={style.todayText}>Mês Inteiro</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handlePastMonth} style={style.todayButton}>
+                  <Text style={style.todayText}>Mês Passado</Text>
+                </TouchableOpacity>
+              </>
+            )}
+          </View>
     </View>
   );
 };
