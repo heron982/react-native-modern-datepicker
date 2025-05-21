@@ -76,38 +76,8 @@ const Calendar = () => {
       <View style={style.daysContainer}>
         <Animated.View style={[style.days, shownAnimation]}>
           <Days />
-          <View style={style.footContainer}>
-            <TouchableOpacity onPress={handleToday} >
-              <Text>Hoje</Text>
-            </TouchableOpacity>
-            {range && (
-              <>
-                <TouchableOpacity onPress={handleFullMonth} style={style.todayButton}>
-                  <Text style={style.todayText}>Mês Inteiro</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={handlePastMonth} style={style.todayButton}>
-                  <Text style={style.todayText}>Mês Passado</Text>
-                </TouchableOpacity>
-              </>
-            )}
-          </View>
         </Animated.View>
       </View>
-       <View style={style.footContainer}>
-            <TouchableOpacity onPress={handleToday}>
-              <Text>Hoje</Text>
-            </TouchableOpacity>
-            {range && (
-              <>
-                <TouchableOpacity onPress={handleFullMonth} style={style.todayButton}>
-                  <Text style={style.todayText}>Mês Inteiro</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={handlePastMonth} style={style.todayButton}>
-                  <Text style={style.todayText}>Mês Passado</Text>
-                </TouchableOpacity>
-              </>
-            )}
-          </View>
     </View>
   );
 };
@@ -141,28 +111,8 @@ const styles = theme =>
       minHeight: 320
     },
     days: {
-
       width: '100%',
-      height: '85%',
-    },
-    footContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      padding: 10,
-      minHeight: 50
-    },
-    todayButton: {
-      paddingVertical: 10,
-      paddingHorizontal: 16,
-      borderRadius: 12,
-      backgroundColor: 'transparent',
-      marginRight: 8,
-      borderWidth: 1,
-    },
-    todayText: {
-      fontFamily: theme.defaultFont,
-      fontSize: theme.textFontSize,
-      color: theme.textDefaultColor,
+      height: '100%',
     },
 
   });

@@ -38,6 +38,34 @@ const Days = () => {
     !itemSize && setItemSize((width / 7).toFixed(2) * 1 - 0.5);
   };
 
+  const handleFullMonth = () => {
+      if (!range) return;
+  
+      const activeDate = utils.getDate(mainState.activeDate);
+      const firstDay = utils.startOfMonth(activeDate);
+      const lastDay = utils.endOfMonth(activeDate);
+  
+      setMainState({ type: 'set', startDate: firstDay, endDate: lastDay });
+      if (onDateChange) {
+        onDateChange({ startDate: firstDay, endDate: lastDay });
+      }
+    };
+  
+    const handlePastMonth = () => {
+      const activeDate = utils.getDate(mainState.activeDate);
+      if (!activeDate) {
+        console.error('Invalid activeDate');
+        return;
+      }
+      const pastMonth = activeDate.clone().add(-1, 'months'); 
+      const firstDay = utils.startOfMonth(pastMonth);
+      const lastDay = utils.endOfMonth(pastMonth);
+      setMainState({ type: 'set', startDate: firstDay, endDate: lastDay });
+      if (onDateChange) {
+        onDateChange({ startDate: firstDay, endDate: lastDay });
+      }
+  };
+
   return (
     <View style={[style.container, utils.flexDirection]} onLayout={changeItemHeight}>
     {days.map((day, n) => {
@@ -81,10 +109,25 @@ const Days = () => {
             </TouchableOpacity>
           )}
         </View>
-      );
-    })}
-  </View>
-);
+        );
+        })}
+          <View style={style.footDays}>
+            <TouchableOpacity onPress={handleToday} style={style.todayButton}>
+              <Text style={style.todayText}>Hoje</Text>
+            </TouchableOpacity>
+            {range && (
+              <>
+                <TouchableOpacity onPress={handleFullMonth} style={style.todayButton}>
+                  <Text style={style.todayText}>Mês Inteiro</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handlePastMonth} style={style.todayButton}>
+                  <Text style={style.todayText}>Mês Passado</Text>
+                </TouchableOpacity>
+              </>
+            )}
+          </View>
+        </View>
+  );
 };
 
 const styles = theme =>
@@ -116,6 +159,28 @@ const styles = theme =>
     },
     dayTextDisabled: {
       opacity: 0.2,
+    },
+    footDays:{
+      flex: 1,
+      justifyContent: 'space-between',
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderTopWidth: 1,
+      borderTopColor: theme.borderColor,
+      padding: 5
+    },
+     todayButton: {
+      paddingVertical: 8,
+      paddingHorizontal: 8,
+      borderRadius: 4,
+      backgroundColor: 'transparent',
+      marginRight: 4,
+      borderWidth: 0.5,
+    },
+    todayText: {
+      fontFamily: theme.defaultFont,
+      fontSize: theme.textFontSize,
+      color: theme.textDefaultColor,
     },
   });
 

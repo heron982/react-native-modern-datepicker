@@ -148,17 +148,33 @@ class utils {
   };
 
   startOfMonth = (date) => {
-    const mDate = this.getDate(date);
-    return this.getFormated(
-      this.data.isGregorian ? mDate.startOf('month') : mDate.startOf('jMonth')
-    );
+    let mDate = null;
+    if (moment.isMoment(date)) {
+      mDate = date;
+    } else if (typeof date === 'string' || date instanceof Date) {
+      mDate = moment(date);
+    }
+    if (!mDate || !mDate.isValid()) {
+      console.error('Invalid date:', date);
+      return null;
+    }
+    const start = this.data.isGregorian ? mDate.startOf('month') : mDate.startOf('jMonth');
+    return this.getFormated(start);
   };
   
   endOfMonth = (date) => {
-    const mDate = this.getDate(date);
-    return this.getFormated(
-      this.data.isGregorian ? mDate.endOf('month') : mDate.endOf('jMonth')
-    );
+    let mDate = null;
+    if (moment.isMoment(date)) {
+      mDate = date;
+    } else if (typeof date === 'string' || date instanceof Date) {
+      mDate = moment(date);
+    }
+    if (!mDate || !mDate.isValid()) {
+      console.error('Invalid date:', date);
+      return null;
+    }
+    const end = this.data.isGregorian ? mDate.endOf('month') : mDate.endOf('jMonth');
+    return this.getFormated(end);
   };
 
 
