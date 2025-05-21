@@ -98,7 +98,6 @@ const styles = theme =>
       fontSize: theme.textFontSize,
     },
     daysContainer: {
-      flex: 1,
       position: 'relative',
       overflow: 'hidden',
       margin: 15,
