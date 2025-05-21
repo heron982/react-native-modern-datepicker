@@ -68,7 +68,7 @@ const DatePicker = props => {
     }),
     onDateChange: props.onDateChange, 
   };
-  const [minHeight, setMinHeight] = useState(300);
+  const [minHeight, setMinHeight] = useState(330);
   const style = styles(contextValue.options);
 
   const renderBody = () => {
@@ -100,7 +100,7 @@ const DatePicker = props => {
     <CalendarContext.Provider value={contextValue}>
       <View
         style={[style.container, {minHeight}, props.style]}
-        onLayout={({nativeEvent}) => setMinHeight(nativeEvent.layout.width * 0.9 + 55)}>
+        onLayout={({nativeEvent}) => setMinHeight(nativeEvent.layout.width * 0.9 + 70)}>
         {renderBody()}
       </View>
     </CalendarContext.Provider>

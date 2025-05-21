@@ -141,11 +141,9 @@ const styles = theme =>
       minHeight: 320
     },
     days: {
-      position: 'absolute',
+
       width: '100%',
       height: '85%',
-      top: 0,
-      right: 0,
     },
     footContainer: {
       flexDirection: 'row',
