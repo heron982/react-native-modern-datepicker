@@ -38,6 +38,14 @@ const Days = () => {
     !itemSize && setItemSize((width / 7).toFixed(2) * 1 - 0.5);
   };
 
+  const handleToday = () => {
+   const today = utils.getToday();
+   setMainState({ type: 'set', selectedDate: today });
+   if (onDateChange) {
+     onDateChange(today);
+   }
+  };
+
   const handleFullMonth = () => {
       if (!range) return;
   
@@ -51,20 +59,24 @@ const Days = () => {
       }
     };
   
-    const handlePastMonth = () => {
-      const activeDate = utils.getDate(mainState.activeDate);
-      if (!activeDate) {
-        console.error('Invalid activeDate');
-        return;
-      }
-      const pastMonth = activeDate.clone().add(-1, 'months'); 
-      const firstDay = utils.startOfMonth(pastMonth);
-      const lastDay = utils.endOfMonth(pastMonth);
-      setMainState({ type: 'set', startDate: firstDay, endDate: lastDay });
-      if (onDateChange) {
-        onDateChange({ startDate: firstDay, endDate: lastDay });
-      }
+  const handlePastMonth = () => {
+    if (!range) return;
+    const activeDate = utils.getDate(mainState.activeDate);
+    console.log('activeDate', activeDate);
+    if (!activeDate) {
+      console.error('Invalid activeDate');
+      return;
+    }
+    const pastMonth = activeDate.clone().add(-1, 'months'); 
+    console.log('pastMonth', pastMonth);
+    const firstDay = utils.startOfMonth(pastMonth);
+    const lastDay = utils.endOfMonth(pastMonth);
+    setMainState({ type: 'set', startDate: firstDay, endDate: lastDay });
+    if (onDateChange) {
+      onDateChange({ startDate: firstDay, endDate: lastDay });
+    }
   };
+
 
   return (
     <View style={[style.container, utils.flexDirection]} onLayout={changeItemHeight}>

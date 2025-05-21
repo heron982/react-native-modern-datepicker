@@ -27,42 +27,6 @@ const Calendar = () => {
     onSelectedChange,
   ]);
 
-   const handleToday = () => {
-    const today = utils.getToday();
-    setMainState({ type: 'set', selectedDate: today });
-    if (onDateChange) {
-      onDateChange(today);
-    }
-  };
-
-  const handleFullMonth = () => {
-    if (!range) return;
-
-    const activeDate = utils.getDate(mainState.activeDate);
-    const firstDay = utils.startOfMonth(activeDate);
-    const lastDay = utils.endOfMonth(activeDate);
-
-    setMainState({ type: 'set', startDate: firstDay, endDate: lastDay });
-    if (onDateChange) {
-      onDateChange({ startDate: firstDay, endDate: lastDay });
-    }
-  };
-
-  const handlePastMonth = () => {
-    if (!range) return;
-
-    const activeDate = utils.getDate(mainState.activeDate);
-
-    const pastMonth = utils.addMonths(activeDate, -1); 
-    const firstDay = utils.startOfMonth(pastMonth);
-    const lastDay = utils.endOfMonth(pastMonth);
-
-    setMainState({ type: 'set', startDate: firstDay, endDate: lastDay });
-    if (onDateChange) {
-      onDateChange({ startDate: firstDay, endDate: lastDay });
-    }
-};
-
   return (
     <View style={style.container}>
       <Header changeMonth={changeMonthAnimation} />
