@@ -62,13 +62,11 @@ const Days = () => {
   const handlePastMonth = () => {
     if (!range) return;
     const activeDate = utils.getDate(mainState.activeDate);
-    console.log('activeDate', activeDate);
     if (!activeDate) {
       console.error('Invalid activeDate');
       return;
     }
     const pastMonth = activeDate.clone().add(-1, 'months'); 
-    console.log('pastMonth', pastMonth);
     const firstDay = utils.startOfMonth(pastMonth);
     const lastDay = utils.endOfMonth(pastMonth);
     setMainState({ type: 'set', startDate: firstDay, endDate: lastDay });
