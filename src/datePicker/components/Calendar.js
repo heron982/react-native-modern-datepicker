@@ -128,14 +128,15 @@ const styles = theme =>
     days: {
       position: 'absolute',
       width: '100%',
-      height: '100%',
+      height: '85%',
       top: 0,
       right: 0,
     },
     footContainer: {
       flexDirection: 'row',
       justifyContent: 'space-around',
-      padding: 10
+      padding: 10,
+      minHeight: 50
     },
     todayButton: {
       paddingVertical: 10,
