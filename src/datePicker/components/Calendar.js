@@ -62,6 +62,16 @@ const Calendar = () => {
         <Animated.View style={[style.days, shownAnimation]}>
           <Days />
         </Animated.View>
+         <View style={style.footContainer}>
+        <TouchableOpacity onPress={handleToday} style={style.todayButton}>
+          <Text style={style.todayText}>Hoje</Text>
+        </TouchableOpacity>
+        {range && (
+          <TouchableOpacity onPress={handleFullMonth} style={style.fullMonthButton}>
+            <Text style={style.fullMonthText}>Mês Inteiro</Text>
+          </TouchableOpacity>
+        )}
+      </View>
       </View>
       <View style={style.footContainer}>
         <TouchableOpacity onPress={handleToday} style={style.todayButton}>
@@ -116,6 +126,7 @@ const styles = theme =>
       flexDirection: 'row',
       justifyContent: 'space-around',
       padding: 10,
+      minHeight: 50
     },
     todayButton: {
       paddingVertical: 10,
