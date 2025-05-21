@@ -77,8 +77,8 @@ const Calendar = () => {
         <Animated.View style={[style.days, shownAnimation]}>
           <Days />
           <View style={style.footContainer}>
-            <TouchableOpacity onPress={handleToday} style={style.todayButton}>
-              <Text style={style.todayText}>Hoje</Text>
+            <TouchableOpacity onPress={handleToday} >
+              <Text>Hoje</Text>
             </TouchableOpacity>
             {range && (
               <>
@@ -94,8 +94,8 @@ const Calendar = () => {
         </Animated.View>
       </View>
        <View style={style.footContainer}>
-            <TouchableOpacity onPress={handleToday} style={style.todayButton}>
-              <Text style={style.todayText}>Hoje</Text>
+            <TouchableOpacity onPress={handleToday}>
+              <Text>Hoje</Text>
             </TouchableOpacity>
             {range && (
               <>
@@ -158,11 +158,6 @@ const styles = theme =>
       backgroundColor: 'transparent',
       marginRight: 8,
       borderWidth: 1,
-      elevation: 4,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
     },
     todayText: {
       fontFamily: theme.defaultFont,
