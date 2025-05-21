@@ -48,6 +48,21 @@ const Calendar = () => {
     }
   };
 
+  const handlePastMonth = () => {
+    if (!range) return;
+
+    const activeDate = utils.getDate(mainState.activeDate);
+
+    const pastMonth = utils.addMonths(activeDate, -1); 
+    const firstDay = utils.startOfMonth(pastMonth);
+    const lastDay = utils.endOfMonth(pastMonth);
+
+    setMainState({ type: 'set', startDate: firstDay, endDate: lastDay });
+    if (onDateChange) {
+      onDateChange({ startDate: firstDay, endDate: lastDay });
+    }
+};
+
   return (
     <View style={style.container}>
       <Header changeMonth={changeMonthAnimation} />
@@ -66,9 +81,14 @@ const Calendar = () => {
               <Text style={style.todayText}>Hoje</Text>
             </TouchableOpacity>
             {range && (
-              <TouchableOpacity onPress={handleFullMonth} style={style.todayButton}>
-                <Text style={style.todayText}>Mês Inteiro</Text>
-              </TouchableOpacity>
+              <>
+                <TouchableOpacity onPress={handleFullMonth} style={style.todayButton}>
+                  <Text style={style.todayText}>Mês Inteiro</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handlePastMonth} style={style.todayButton}>
+                  <Text style={style.todayText}>Mês Passado</Text>
+                </TouchableOpacity>
+              </>
             )}
           </View>
         </Animated.View>
@@ -115,8 +135,7 @@ const styles = theme =>
     footContainer: {
       flexDirection: 'row',
       justifyContent: 'space-around',
-      padding: 10,
-      minHeight: 50
+      padding: 10
     },
     todayButton: {
       paddingVertical: 10,
@@ -124,7 +143,12 @@ const styles = theme =>
       borderRadius: 12,
       backgroundColor: 'transparent',
       marginRight: 8,
-      borderWidth: 1
+      borderWidth: 1,
+      elevation: 4,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
     },
     todayText: {
       fontFamily: theme.defaultFont,
