@@ -171,7 +171,6 @@ const styles = theme =>
       opacity: 0.2,
     },
     footDays:{
-      flex: 1,
       justifyContent: 'space-between',
       flexDirection: 'row',
       alignItems: 'center',
